@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded());
 // in latest body-parser use like below.
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/api/sendnotify', function(req, res) {
+app.post('/v2/api/sendnotify', function(req, res) {
      try{
          let body  = req.body
          mail.serverChanMail(body.title,body.desp,body.to,"通知")
@@ -20,7 +20,7 @@ app.post('/api/sendnotify', function(req, res) {
         res.send({code:200,msg:"unknown error:"+e})
      }
 });
-app.post("/api/newComment",(req,resp)=>{
+app.post("/v2/api/newComment",(req,resp)=>{
         try {
             let body = req.body
             console.log(body)
