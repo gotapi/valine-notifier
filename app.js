@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const {Direction, MessageBus, SocketBus} = require( "node-gotapi-ws");
-const channel = "/valine-comment/notifier/hpq1SCEJulwBRQy0u8fnhX0Y-9Nh9j0Va"
+const channel = "/pushmail/notifier/hpq1SCEJulwBRQy0u8fnhX0Y"
 require('dotenv').config();
 const mail = require(  "./utilities/send-mail")
 const wsHost = "ws.gotapi.net"

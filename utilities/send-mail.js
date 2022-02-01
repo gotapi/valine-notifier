@@ -23,7 +23,32 @@ console.log(config)
 const transporter = nodemailer.createTransport(config);
 let templateName = process.env.TEMPLATE_NAME ?  process.env.TEMPLATE_NAME : "default";
 let noticeTemplate = ejs.compile(fs.readFileSync(path.resolve(process.cwd(), 'template', templateName, 'notice.ejs'), 'utf8'));
+
+let commonTemplate = ejs.compile(fs.readFileSync(path.resolve(process.cwd(), 'template', templateName, 'common.ejs'), 'utf8'));
+
 // 提醒站长
+exports.serverChanMail = (title,content,toEmail,senderName) => {
+    console.log("title:"+title)
+    console.log("content:"+content)
+    let mailSubject = title;
+    let mailContent = commonTemplate({
+        content:content
+    })
+    let mailOptions = {
+        from: '"' + senderName + '" <' + process.env.SMTP_USER + '>',
+        to: toEmail,
+        subject: mailSubject,
+        html: mailContent
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log("smtp transport failed:");
+            console.log(error);
+            return console.log(error);
+        }
+    })
+
+}
 exports.notice = (comment) => {
     console.warn("notice called")
     console.log(comment)
